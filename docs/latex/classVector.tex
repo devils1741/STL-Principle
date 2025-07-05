@@ -1,0 +1,222 @@
+\hypertarget{classVector}{}\doxysection{Vector$<$ T $>$ 模板类 参考}
+\label{classVector}\index{Vector$<$ T $>$@{Vector$<$ T $>$}}
+
+
+一个自定义的类，封装了 std\+::vector 的部分功能。  
+
+
+\doxysubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classVector_a39d6069675db4ecfc1ab81d440da759a}{Vector}} ()
+\begin{DoxyCompactList}\small\item\em 无参构造函数。 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector_a0a182fd3a89769a7ba22d560ae6e8439}{Vector}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em 参数化构造函数。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classVector_a9c048a1ad78169c0f1c0dd176c8a4ec6}\label{classVector_a9c048a1ad78169c0f1c0dd176c8a4ec6}} 
+\mbox{\hyperlink{classVector_a9c048a1ad78169c0f1c0dd176c8a4ec6}{Vector}} (const \mbox{\hyperlink{classVector}{Vector}} \&)=delete
+\begin{DoxyCompactList}\small\item\em 禁止拷贝构造函数。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classVector_a23fba863ac6cb7c06d4e3c001e1cf5fd}\label{classVector_a23fba863ac6cb7c06d4e3c001e1cf5fd}} 
+\mbox{\hyperlink{classVector}{Vector}} \& \mbox{\hyperlink{classVector_a23fba863ac6cb7c06d4e3c001e1cf5fd}{operator=}} (const \mbox{\hyperlink{classVector}{Vector}} \&)=delete
+\begin{DoxyCompactList}\small\item\em 禁止赋值运算符。 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVector_afd524fac19e6d3d69db5198ffe2952b0}{$\sim$\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em 析构函数。 \end{DoxyCompactList}\item 
+vector$<$ T $>$\+::iterator \mbox{\hyperlink{classVector_a124fc6c535450dd9110e608ee052cbf2}{begin}} ()
+\begin{DoxyCompactList}\small\item\em 获取开始位置迭代器 \end{DoxyCompactList}\item 
+vector$<$ T $>$\+::iterator \mbox{\hyperlink{classVector_a2cd4df3753ed66235d1932245642b4ea}{end}} ()
+\begin{DoxyCompactList}\small\item\em 获取结束位置迭代器 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classVector_a7a11a112fc2ce98b8232ebcc75b925f3}{push\+\_\+back}} (T \&\&t)
+\begin{DoxyCompactList}\small\item\em 从尾部插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入 push\+\_\+back底层调用的是emplace\+\_\+back \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classVector_a126d23c0e681159235ca81cd0b73e87f}{emplace\+\_\+back}} (const T \&\&t)
+\begin{DoxyCompactList}\small\item\em 从尾部插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 因为底层使用\+\_\+\+Alloc\+\_\+traits在尾部直接构造对象，因此效率比push\+\_\+back高很多。 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classVector_af6c604e2cfe710af0cb2ff6673f80a7e}{insert}} (const size\+\_\+t \&index, T \&t)
+\begin{DoxyCompactList}\small\item\em 任意位置插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 插入元素位置之后的所有元素都往后平移1位 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classVector_ae1256fd477c6f54d122f50ae0b6114fb}{insert}} (const size\+\_\+t \&index, \mbox{\hyperlink{classVector}{Vector}}$<$ T $>$ \&other)
+\begin{DoxyCompactList}\small\item\em 任意位置插入一个\+Vector$<$\+T$>$中的所有元素 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 插入元素位置之后的所有元素都往后平移1位 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classVector_a543f5b725aad3622b57ef435da298f2c}{erase}} (const size\+\_\+t begin\+\_\+index, const size\+\_\+t end\+\_\+index)
+\begin{DoxyCompactList}\small\item\em 移除一定范围的元素 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename T$>$\newline
+class Vector$<$ T $>$}
+
+一个自定义的类，封装了 std\+::vector 的部分功能。 
+
+\doxysubsection{构造及析构函数说明}
+\mbox{\Hypertarget{classVector_a39d6069675db4ecfc1ab81d440da759a}\label{classVector_a39d6069675db4ecfc1ab81d440da759a}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::\mbox{\hyperlink{classVector}{Vector}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+无参构造函数。 
+
+将 \+\_\+vec 初始化为 nullptr，表示未分配内存。 \mbox{\Hypertarget{classVector_a0a182fd3a89769a7ba22d560ae6e8439}\label{classVector_a0a182fd3a89769a7ba22d560ae6e8439}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::\mbox{\hyperlink{classVector}{Vector}} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+参数化构造函数。 
+
+初始化 \+\_\+vec 为一个指定大小的 std\+::vector。
+
+
+\begin{DoxyParams}{参数}
+{\em size} & vector 的长度，必须为非零正数。 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classVector_afd524fac19e6d3d69db5198ffe2952b0}\label{classVector_afd524fac19e6d3d69db5198ffe2952b0}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!````~Vector@{$\sim$Vector}}
+\index{````~Vector@{$\sim$Vector}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$Vector()}{~Vector()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{classVector}{Vector}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+析构函数。 
+
+释放动态分配的 std\+::vector 对象。 $<$ 释放动态分配的 std\+::vector 对象
+
+\doxysubsection{成员函数说明}
+\mbox{\Hypertarget{classVector_a124fc6c535450dd9110e608ee052cbf2}\label{classVector_a124fc6c535450dd9110e608ee052cbf2}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!begin@{begin}}
+\index{begin@{begin}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+vector$<$T$>$\+::iterator \mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+获取开始位置迭代器 
+
+\begin{DoxyReturn}{返回}
+迭代器 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector_a126d23c0e681159235ca81cd0b73e87f}\label{classVector_a126d23c0e681159235ca81cd0b73e87f}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!emplace\_back@{emplace\_back}}
+\index{emplace\_back@{emplace\_back}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{emplace\_back()}{emplace\_back()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::emplace\+\_\+back (\begin{DoxyParamCaption}\item[{const T \&\&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+从尾部插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 因为底层使用\+\_\+\+Alloc\+\_\+traits在尾部直接构造对象，因此效率比push\+\_\+back高很多。 
+
+
+\begin{DoxyParams}{参数}
+{\em t} & 一个类型为\+T的元素 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+成功会返回0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector_a2cd4df3753ed66235d1932245642b4ea}\label{classVector_a2cd4df3753ed66235d1932245642b4ea}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!end@{end}}
+\index{end@{end}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+vector$<$T$>$\+::iterator \mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+获取结束位置迭代器 
+
+\begin{DoxyReturn}{返回}
+迭代器 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector_a543f5b725aad3622b57ef435da298f2c}\label{classVector_a543f5b725aad3622b57ef435da298f2c}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!erase@{erase}}
+\index{erase@{erase}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{erase()}{erase()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::erase (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{begin\+\_\+index,  }\item[{const size\+\_\+t}]{end\+\_\+index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+移除一定范围的元素 
+
+
+\begin{DoxyParams}{参数}
+{\em begin\+\_\+index} & 被删除元素的起始位置 \\
+\hline
+{\em end\+\_\+index} & 被删除元素的结束位置 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+成功会返回0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector_af6c604e2cfe710af0cb2ff6673f80a7e}\label{classVector_af6c604e2cfe710af0cb2ff6673f80a7e}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!insert@{insert}}
+\index{insert@{insert}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::insert (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{index,  }\item[{T \&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+任意位置插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 插入元素位置之后的所有元素都往后平移1位 
+
+
+\begin{DoxyParams}{参数}
+{\em index} & 插入元素的索引 \\
+\hline
+{\em t} & 一个类型为\+T的元素 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+成功会返回0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector_ae1256fd477c6f54d122f50ae0b6114fb}\label{classVector_ae1256fd477c6f54d122f50ae0b6114fb}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!insert@{insert}}
+\index{insert@{insert}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::insert (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{index,  }\item[{\mbox{\hyperlink{classVector}{Vector}}$<$ T $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+任意位置插入一个\+Vector$<$\+T$>$中的所有元素 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 插入元素位置之后的所有元素都往后平移1位 
+
+
+\begin{DoxyParams}{参数}
+{\em index} & 插入元素的索引 \\
+\hline
+{\em other} & Vector$<$\+T$>$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+成功会返回0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVector_a7a11a112fc2ce98b8232ebcc75b925f3}\label{classVector_a7a11a112fc2ce98b8232ebcc75b925f3}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!push\_back@{push\_back}}
+\index{push\_back@{push\_back}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{push\_back()}{push\_back()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classVector}{Vector}}$<$ T $>$\+::push\+\_\+back (\begin{DoxyParamCaption}\item[{T \&\&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+从尾部插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入 push\+\_\+back底层调用的是emplace\+\_\+back 
+
+
+\begin{DoxyParams}{参数}
+{\em t} & 一个类型为\+T的元素 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+成功会返回0 
+\end{DoxyReturn}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+/repo/\+STL-\/\+Principle/src/stl\+\_\+vector.\+cpp\end{DoxyCompactItemize}
