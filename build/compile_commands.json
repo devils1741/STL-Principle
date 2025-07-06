@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/repo/STL-Principle/build",
+  "command": "/usr/bin/g++ -g -std=gnu++20 -o CMakeFiles/stlDemo.dir/src/stl_vector.cpp.o -c /repo/STL-Principle/src/stl_vector.cpp",
+  "file": "/repo/STL-Principle/src/stl_vector.cpp"
+}
+]

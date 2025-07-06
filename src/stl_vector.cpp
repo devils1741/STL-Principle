@@ -94,9 +94,9 @@ public:
      *  @param t 一个类型为T的元素
      *  @return 成功会返回0
      */
-    int emplace_back(const T &&t)
+    int emplace_back(T &&t)
     {
-        _vec->emplace_back(t);
+        _vec->emplace_back(forward<T>(t));
         return 0;
     }
 
@@ -130,6 +130,7 @@ public:
 
     /**
      *  @brief 移除一定范围的元素
+     *  会检查越界
      *  @param begin_index 被删除元素的起始位置
      *  @param end_index 被删除元素的结束位置
      *  @return 成功会返回0
@@ -142,6 +143,15 @@ public:
         }
         _vec->erase(_vec->begin() + begin_index, _vec->begin() + end_index);
         return 0;
+    }
+    /**
+     *  @brief 获取某个元素的引用
+     *  @param index 需要获取元素的索引
+     *  @return 成功会返回元素的引用
+     */
+    T &operator[](const size_t index)
+    {
+        return (*_vec)[index];
     }
 
 private:
@@ -198,6 +208,10 @@ int main()
         std::cout << *it << " ";
     }
     std::cout << std::endl;
+
+    // 测试[]运算符
+    vec2[10] = 100;
+    std::cout << "vec2[10]=" << vec2[10] << std::endl;
 
     // 测试析构函数
     std::cout << "测试析构函数成功" << std::endl;
