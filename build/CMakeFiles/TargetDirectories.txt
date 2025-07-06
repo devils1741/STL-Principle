@@ -1,3 +1,0 @@
-/repo/STL-Principle/build/CMakeFiles/stlDemo.dir
-/repo/STL-Principle/build/CMakeFiles/edit_cache.dir
-/repo/STL-Principle/build/CMakeFiles/rebuild_cache.dir
