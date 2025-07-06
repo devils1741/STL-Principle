@@ -14,8 +14,8 @@ var indexSectionNames =
 
 var indexSectionLabels =
 {
-  0: "全部",
-  1: "类",
-  2: "函数"
+  0: "All",
+  1: "Classes",
+  2: "Functions"
 };
 

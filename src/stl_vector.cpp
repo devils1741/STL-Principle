@@ -7,7 +7,14 @@ using std::size_t;
 using std::vector;
 /**
  * @brief 一个自定义的类，封装了 std::vector 的部分功能。
- *
+ * \n vector底层实现是一个动态数组
+ * \n 继承自protected _Vector_base。_Vector_base控制数据的指针主要有三个:_M_start,_M_finish,_M_end_of_storage。
+ * \n 无参构造函数不申请内存，有参构造函数一次性申请足够内存
+ * \n 插入元素首先会检查空间是否足够，如果不够会扩容，扩容多少由编译器具体实现。中间插入元素效率较低，尾部插入元素效率较好
+ * \n 删除最后一个元素会把_M_end_of_storage指针前移一位，删除中间元素会直接把删除位置之后的元素前移一位覆盖， 删除元素不会释放已有的内存
+ * \n 读取元素会检查是否越界
+ * \n 修改元素不支持直接修改，需要先获取引用再修改
+ * \n clear释放内存不会真的释放内存， shrink_to_fit可能释放，取决于编译器的实现。gcc会把容量缩减到和当前元素的数量相匹配
  */
 template <typename T>
 class Vector
