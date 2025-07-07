@@ -7,17 +7,18 @@ using std::size_t;
 using std::vector;
 /**
  * @brief 一个自定义的类，封装了 std::vector 的部分功能。
- * \n vector底层实现是一个动态数组
+ * \n vector底层实现是一个动态数组,数组位于堆上。默认大小24字节
  * \n 继承自protected _Vector_base。_Vector_base控制数据的指针主要有三个:_M_start,_M_finish,_M_end_of_storage。
  * \n 无参构造函数不申请内存，有参构造函数一次性申请足够内存
- * \n 插入元素首先会检查空间是否足够，如果不够会扩容，扩容多少由编译器具体实现。中间插入元素效率较低，尾部插入元素效率较好
- * \n 删除最后一个元素会把_M_end_of_storage指针前移一位，删除中间元素会直接把删除位置之后的元素前移一位覆盖， 删除元素不会释放已有的内存
+ * \n 插入元素首先会检查空间是否足够，如果不够会扩容，扩容多少由编译器具体实现，vs1.5倍，gcc2倍，底层使用malloc分配内存空间。中间插入元素效率较低，尾部插入元素效率较好
+ * \n 删除最后一个元素会把_M_finish指针前移一位，删除中间元素会直接把删除位置之后的元素前移一位覆盖， 删除元素不会释放已有的内存
  * \n 读取元素会检查是否越界
  * \n 修改元素不支持直接修改，需要先获取引用再修改
  * \n clear释放内存不会真的释放内存， shrink_to_fit可能释放，取决于编译器的实现。gcc会把容量缩减到和当前元素的数量相匹配
+ * \n resize会截断当前vector，如果小于当前vector的size;反之会重新分配内存。resize
  */
 template <typename T>
-class Vector
+class vectorWarpper
 {
 public:
     /**
@@ -25,7 +26,7 @@ public:
      *
      * 将 _vec 初始化为 nullptr，表示未分配内存。
      */
-    Vector() : _vec(nullptr) {}
+    vectorWarpper() : _vec(nullptr) {}
 
     /**
      * @brief 参数化构造函数。
@@ -34,7 +35,7 @@ public:
      *
      * @param size vector 的长度，必须为非零正数。
      */
-    explicit Vector(size_t size)
+    explicit vectorWarpper(size_t size)
     {
         if (size < 0)
         {
@@ -46,19 +47,29 @@ public:
     /**
      * @brief 禁止拷贝构造函数。
      */
-    Vector(const Vector &) = delete;
+    vectorWarpper(const vectorWarpper &) = delete;
+
+    /**
+     * @brief 禁止移动拷贝构造函数。
+     */
+    vectorWarpper(vectorWarpper &&) = delete;
 
     /**
      * @brief 禁止赋值运算符。
      */
-    Vector &operator=(const Vector &) = delete;
+    vectorWarpper &operator=(const vectorWarpper &) = delete;
+
+    /**
+     * @brief 禁止赋值运算符。
+     */
+    vectorWarpper &operator=(vectorWarpper &&) = delete;
 
     /**
      * @brief 析构函数。
      *
      * 释放动态分配的 std::vector 对象。
      */
-    ~Vector()
+    ~vectorWarpper()
     {
         delete _vec; ///< 释放动态分配的 std::vector 对象
     }
@@ -126,10 +137,10 @@ public:
      *  vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。
      *  插入元素位置之后的所有元素都往后平移1位
      *  @param index 插入元素的索引
-     *  @param other Vector<T>
+     *  @param other vectorWarpper<T>
      *  @return 成功会返回0
      */
-    int insert(const size_t &index, Vector<T> &other)
+    int insert(const size_t &index, vectorWarpper<T> &other)
     {
         _vec->insert(_vec->begin() + index, other.begin(), other.end());
         return 0;
@@ -151,6 +162,35 @@ public:
         _vec->erase(_vec->begin() + begin_index, _vec->begin() + end_index);
         return 0;
     }
+
+    /**
+     *  @brief 重新分配vector的size
+     *  - 如果new size < current size，只保留前n个，但是多余的元素不会销毁，仍然可以访问
+     *  - 如果new size > current size，则在容器中追加元素，如果val指定了，则追加的元素为val的拷贝，否则，默认初始化
+     *  - 如果new size > current capacity，内存会自动重新分配
+     *  @param size 容器调整后的size
+     *  @return 成功会返回0
+     */
+    int resize(size_t size)
+    {
+        _vec->resize(size);
+        return 0;
+    }
+
+    /**
+     *  @brief 重新分配vector的capacity
+     *  - 如果n>容器的当前capacity，该函数会使得容器重新分配内存使capacity达到n
+     *  - 任何其他情况，该函数调用不会导致内存重新分配，并且容器的capacity不会改变
+     *  - 该函数不会影响向量的size而且不会改变任何元素
+     *  @param capacity 容器调整后容量的大小
+     *  @return 成功会返回0
+     */
+    int reserve(size_t capacity)
+    {
+        _vec->reserve(capacity);
+        return 0;
+    }
+
     /**
      *  @brief 获取某个元素的引用
      *  @param index 需要获取元素的索引
@@ -168,11 +208,11 @@ private:
 int main()
 {
     // 测试无参构造函数
-    Vector<int> vec1;
+    vectorWarpper<int> vec1;
     std::cout << "测试无参构造函数成功" << std::endl;
 
     // 测试参数化构造函数
-    Vector<int> vec2(5);
+    vectorWarpper<int> vec2(5);
     std::cout << "测试参数化构造函数成功" << std::endl;
 
     // 测试 push_back
@@ -189,7 +229,7 @@ int main()
     std::cout << "测试 insert（单个元素）成功，元素为: " << vec2.begin()[3] << std::endl;
 
     // 测试 insert（Vector对象）
-    Vector<int> vec3(2);
+    vectorWarpper<int> vec3(2);
     vec3.push_back(40);
     vec3.push_back(50);
     vec2.insert(1, vec3);
