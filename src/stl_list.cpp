@@ -1,4 +1,5 @@
 #include <iostream>
+#include <gtest/gtest.h>
 #include <list>
 using std::list;
 
@@ -13,20 +14,32 @@ template <typename T>
 class listWarpper
 {
 public:
-    listWarpper() : _list(nullptr) {}
+    listWarpper() : _list(new list<T>()) {}
     ~listWarpper()
     {
         delete _list;
     }
 
+    /**
+     * @brief 获取迭代器
+     * @return 成功时返回迭代器，失败时抛出异常
+     */
     typename list<T>::iterator begin()
     {
-        return _list->begin();
+        if (_list)
+            return _list->begin();
+        throw std::runtime_error("List is not initialized");
     }
 
+    /**
+     * @brief 获取迭代器
+     * @return 成功时返回迭代器，失败时抛出异常
+     */
     typename list<T>::iterator end()
     {
-        return _list->end();
+        if (_list)
+            return _list->end();
+        throw std::runtime_error("List is not initialized");
     }
 
     /**
@@ -37,7 +50,9 @@ public:
      */
     int insert(const size_t index, const T &t)
     {
-        _list->insert(index, t);
+        auto it = _list->begin();
+        std::advance(it, index);
+        _list->insert(it, t);
         return 0;
     }
 
@@ -50,20 +65,9 @@ public:
      */
     int insert(const size_t index, const size_t number, const T &t)
     {
-        _list->insert(index, number, t);
-        return 0;
-    }
-
-    /**
-     * @brief 在指定位置插入若干个相同值的元素
-     * @param index 插入位置的索引
-     * @param number 插入元素的个数
-     * @param t 要插入的元素
-     * @return 成功时返回0
-     */
-    int insert(const size_t number, const T &t)
-    {
-        _list->insert(index, number, t);
+        auto it = _list->begin();
+        std::advance(it, index);
+        _list->insert(it, number, t);
         return 0;
     }
 
@@ -73,9 +77,12 @@ public:
      * @param other 待插入的list
      * @return 成功时返回0
      */
-    int spilce(const size_t index, list<T> &other)
+    int splice(const size_t index, list<T> &other)
     {
-        _list->splice(_list->begin() + index, other);
+
+        auto it = _list->begin();
+        std::advance(it, index);
+        _list->splice(it, other);
         return 0;
     }
 
@@ -87,6 +94,7 @@ public:
     int push_front(const T &t)
     {
         _list->push_front(t);
+        return 0;
     }
 
     /**
@@ -97,22 +105,29 @@ public:
     int push_back(const T &t)
     {
         _list->push_back(t);
+        return 0;
     }
 
     /**
-     * @brief 在链表头部位置插入1个元素
-     * @param index 插入位置的索引
+     * @brief 移除链表头部的元素
      * @return 成功时返回0
      */
-    int push_front(const T &t)
+    int pop_front()
     {
-        _list->push_front(t);
+        _list->pop_front();
+        return 0;
+    }
+
+    /**
+     * @brief 移除链表尾部的元素
+     * @return 成功时返回0
+     */
+    int pop_back()
+    {
+        _list->pop_back();
+        return 0;
     }
 
 private:
     list<T> *_list;
 };
-
-int main()
-{
-}
