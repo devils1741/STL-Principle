@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['vector_19',['Vector',['../classVector.html#a39d6069675db4ecfc1ab81d440da759a',1,'Vector::Vector()'],['../classVector.html#a0a182fd3a89769a7ba22d560ae6e8439',1,'Vector::Vector(size_t size)'],['../classVector.html#a9c048a1ad78169c0f1c0dd176c8a4ec6',1,'Vector::Vector(const Vector &amp;)=delete']]]
+  ['pop_5fback_29',['pop_back',['../classlistWarpper.html#abd56ea1007f74b181a8624016e06d784',1,'listWarpper']]],
+  ['pop_5ffront_30',['pop_front',['../classlistWarpper.html#accc3d62f098ea32ea9ef8ac45b916c9a',1,'listWarpper']]],
+  ['push_5fback_31',['push_back',['../classlistWarpper.html#a62a84c883fa6121a8da33fa5956dd593',1,'listWarpper::push_back()'],['../classvectorWarpper.html#aefcf49d370a2dd8d0c2464893f964500',1,'vectorWarpper::push_back()']]],
+  ['push_5ffront_32',['push_front',['../classlistWarpper.html#ab296c248a12cc9d52e3f3a02cd3e1412',1,'listWarpper']]]
 ];

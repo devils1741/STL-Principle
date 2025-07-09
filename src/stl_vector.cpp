@@ -26,7 +26,7 @@ public:
      *
      * 将 _vec 初始化为 nullptr，表示未分配内存。
      */
-    vectorWarpper() : _vec(nullptr) {}
+    vectorWarpper() : _vec(new std::vector<T>()) {}
 
     /**
      * @brief 参数化构造函数。
@@ -37,10 +37,6 @@ public:
      */
     explicit vectorWarpper(size_t size)
     {
-        if (size < 0)
-        {
-            throw std::invalid_argument("size of Vectot can't be negetive");
-        }
         _vec = new std::vector<T>(size);
     }
 
@@ -126,7 +122,7 @@ public:
      *  @param t 一个类型为T的元素
      *  @return 成功会返回0
      */
-    int insert(const size_t &index, T &t)
+    int insert(const size_t &index, T &&t)
     {
         _vec->insert(_vec->begin() + index, t);
         return 0;
@@ -165,7 +161,7 @@ public:
 
     /**
      *  @brief 重新分配vector的size
-     *  - 如果new size < current size，只保留前n个，但是多余的元素不会销毁，仍然可以访问
+     *  - 如果new size < current size，只保留前n个，但是多余的元素会销毁，基本数据类型除外
      *  - 如果new size > current size，则在容器中追加元素，如果val指定了，则追加的元素为val的拷贝，否则，默认初始化
      *  - 如果new size > current capacity，内存会自动重新分配
      *  @param size 容器调整后的size
@@ -198,7 +194,26 @@ public:
      */
     T &operator[](const size_t index)
     {
+
         return (*_vec)[index];
+    }
+
+    /**
+     *  @brief 获取vector的容量
+     *  @return 返回容器的容量
+     */
+    size_t capacity()
+    {
+        return _vec->capacity();
+    }
+
+    /**
+     *  @brief 获取vector的大小
+     *  @return 返回容器的大小
+     */
+    size_t size()
+    {
+        return _vec->size();
     }
 
 private:

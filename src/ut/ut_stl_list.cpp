@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <stdexcept>
 #include "../stl_list.cpp"
-// 测试类
+
 class ListWarpperTest : public ::testing::Test
 {
 protected:
@@ -18,14 +18,18 @@ protected:
     listWarpper<int>* listWrapper;
 };
 
-// 测试构造函数和析构函数
+/**
+ * @brief 测试构造函数和析构函数是否正常运行
+ */
 TEST_F(ListWarpperTest, ConstructorAndDestructor)
 {
     listWarpper<int> wrapper;
-    SUCCEED(); // 如果没有崩溃或异常，则认为通过
+    SUCCEED();
 }
 
-// 测试begin和end函数
+/**
+ * @brief 测试 begin 和 end 函数是否正确返回迭代器
+ */
 TEST_F(ListWarpperTest, BeginAndEnd)
 {
     listWrapper->push_back(1);
@@ -34,34 +38,36 @@ TEST_F(ListWarpperTest, BeginAndEnd)
     auto beginIt = listWrapper->begin();
     auto endIt = listWrapper->end();
 
-    EXPECT_EQ(*beginIt, 1); // 检查begin是否指向第一个元素
-    --endIt; // 将end迭代器向前移动一位，使其指向最后一个有效元素
-    EXPECT_EQ(*endIt, 2); // 检查end是否指向最后一个元素
+    EXPECT_EQ(*beginIt, 1);
+    --endIt;
+    EXPECT_EQ(*endIt, 2);
 }
 
-// 测试insert函数
+/**
+ * @brief 测试 insert 函数在指定位置插入元素的功能
+ */
 TEST_F(ListWarpperTest, Insert)
 {
     listWrapper->push_back(1);
     listWrapper->push_back(2);
     listWrapper->push_back(3);
 
-    // 插入单个元素
-    listWrapper->insert(1, 99); // 在索引1处插入99
+    listWrapper->insert(1, 99);
     auto it = listWrapper->begin();
-    std::advance(it, 1); // 移动到索引1
-    EXPECT_EQ(*it, 99); // 检查是否正确插入
+    std::advance(it, 1);
+    EXPECT_EQ(*it, 99);
 
-    // 插入多个相同元素
-    listWrapper->insert(3, 2, 88); // 在索引3处插入两个88
+    listWrapper->insert(3, 2, 88);
     it = listWrapper->begin();
-    std::advance(it, 3); // 移动到索引3
-    EXPECT_EQ(*it, 88); // 检查是否正确插入
-    std::advance(it, 1); // 移动到下一个元素
-    EXPECT_EQ(*it, 88); // 检查是否正确插入
+    std::advance(it, 3);
+    EXPECT_EQ(*it, 88);
+    std::advance(it, 1);
+    EXPECT_EQ(*it, 88);
 }
 
-// 测试splice函数
+/**
+ * @brief 测试 splice 函数将另一个链表插入当前链表的功能
+ */
 TEST_F(ListWarpperTest, Splice)
 {
     listWrapper->push_back(1);
@@ -71,15 +77,17 @@ TEST_F(ListWarpperTest, Splice)
     otherList.push_back(99);
     otherList.push_back(88);
 
-    listWrapper->splice(1, otherList); // 在索引1处插入otherList
+    listWrapper->splice(1, otherList);
     auto it = listWrapper->begin();
-    std::advance(it, 1); // 移动到索引1
-    EXPECT_EQ(*it, 99); // 检查是否正确插入
-    std::advance(it, 1); // 移动到下一个元素
-    EXPECT_EQ(*it, 88); // 检查是否正确插入
+    std::advance(it, 1);
+    EXPECT_EQ(*it, 99);
+    std::advance(it, 1);
+    EXPECT_EQ(*it, 88);
 }
 
-// 测试push_front和push_back函数
+/**
+ * @brief 测试 push_front 和 push_back 函数在链表前后插入元素的功能
+ */
 TEST_F(ListWarpperTest, PushFrontAndPushBack)
 {
     listWrapper->push_front(1);
@@ -88,16 +96,18 @@ TEST_F(ListWarpperTest, PushFrontAndPushBack)
     listWrapper->push_back(4);
 
     auto it = listWrapper->begin();
-    EXPECT_EQ(*it, 2); // 检查push_front是否正确
+    EXPECT_EQ(*it, 2);
     std::advance(it, 1);
-    EXPECT_EQ(*it, 1); // 检查push_front是否正确
+    EXPECT_EQ(*it, 1);
     std::advance(it, 1);
-    EXPECT_EQ(*it, 3); // 检查push_back是否正确
+    EXPECT_EQ(*it, 3);
     std::advance(it, 1);
-    EXPECT_EQ(*it, 4); // 检查push_back是否正确
+    EXPECT_EQ(*it, 4);
 }
 
-// 测试pop_front和pop_back函数
+/**
+ * @brief 测试 pop_front 和 pop_back 函数删除链表前后元素的功能
+ */
 TEST_F(ListWarpperTest, PopFrontAndPopBack)
 {
     listWrapper->push_front(1);
@@ -107,14 +117,13 @@ TEST_F(ListWarpperTest, PopFrontAndPopBack)
 
     listWrapper->pop_front();
     auto it = listWrapper->begin();
-    EXPECT_EQ(*it, 1); // 检查pop_front是否正确
+    EXPECT_EQ(*it, 1);
 
     listWrapper->pop_back();
     it = listWrapper->end();
-    --it; // 移动到最后一个元素
-    EXPECT_EQ(*it, 3); // 检查pop_back是否正确
+    --it;
+    EXPECT_EQ(*it, 3);
 }
-
 
 int main(int argc, char **argv)
 {

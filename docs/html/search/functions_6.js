@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_7evector_20',['~Vector',['../classVector.html#afd524fac19e6d3d69db5198ffe2952b0',1,'Vector']]]
+  ['reserve_33',['reserve',['../classvectorWarpper.html#a605538cc5e9427f30804dbaaae908284',1,'vectorWarpper']]],
+  ['resize_34',['resize',['../classvectorWarpper.html#ac37b0a6830c3b85b354a277702d96284',1,'vectorWarpper']]]
 ];

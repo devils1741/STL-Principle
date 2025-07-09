@@ -1,0 +1,351 @@
+\hypertarget{classvectorWarpper}{}\doxysection{vector\+Warpper$<$ T $>$ Class Template Reference}
+\label{classvectorWarpper}\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+
+
+一个自定义的类，封装了 std\+::vector 的部分功能。 ~\newline
+ vector底层实现是一个动态数组,数组位于堆上。默认大小24字节 ~\newline
+ 继承自protected \+\_\+\+Vector\+\_\+base。\+\_\+\+Vector\+\_\+base控制数据的指针主要有三个\+:\+\_\+\+M\+\_\+start,\+\_\+\+M\+\_\+finish,\+\_\+\+M\+\_\+end\+\_\+of\+\_\+storage。 ~\newline
+ 无参构造函数不申请内存，有参构造函数一次性申请足够内存 ~\newline
+ 插入元素首先会检查空间是否足够，如果不够会扩容，扩容多少由编译器具体实现，vs1.5倍，gcc2倍，底层使用malloc分配内存空间。中间插入元素效率较低，尾部插入元素效率较好 ~\newline
+ 删除最后一个元素会把\+\_\+\+M\+\_\+finish指针前移一位，删除中间元素会直接把删除位置之后的元素前移一位覆盖， 删除元素不会释放已有的内存 ~\newline
+ 读取元素会检查是否越界 ~\newline
+ 修改元素不支持直接修改，需要先获取引用再修改 ~\newline
+ clear释放内存不会真的释放内存， shrink\+\_\+to\+\_\+fit可能释放，取决于编译器的实现。gcc会把容量缩减到和当前元素的数量相匹配 ~\newline
+ resize会截断当前vector，如果小于当前vector的size;反之会重新分配内存。resize  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classvectorWarpper_a623a8a7f0956309ad79db566d11f656e}{vector\+Warpper}} ()
+\begin{DoxyCompactList}\small\item\em 无参构造函数。 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classvectorWarpper_a4f7c1937877d0a1dfc3d82a4c6928b18}{vector\+Warpper}} (size\+\_\+t \mbox{\hyperlink{classvectorWarpper_a68699f5090fb2849085679cb8643e7c1}{size}})
+\begin{DoxyCompactList}\small\item\em 参数化构造函数。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classvectorWarpper_a31aa2f4f0e8cae051f153cb2d47ac880}\label{classvectorWarpper_a31aa2f4f0e8cae051f153cb2d47ac880}} 
+\mbox{\hyperlink{classvectorWarpper_a31aa2f4f0e8cae051f153cb2d47ac880}{vector\+Warpper}} (const \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}} \&)=delete
+\begin{DoxyCompactList}\small\item\em 禁止拷贝构造函数。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classvectorWarpper_acbcc42b631937b9b501710f4da0fd72d}\label{classvectorWarpper_acbcc42b631937b9b501710f4da0fd72d}} 
+\mbox{\hyperlink{classvectorWarpper_acbcc42b631937b9b501710f4da0fd72d}{vector\+Warpper}} (\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}} \&\&)=delete
+\begin{DoxyCompactList}\small\item\em 禁止移动拷贝构造函数。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classvectorWarpper_a2b4b0f62a04385ea3f41afe05868124e}\label{classvectorWarpper_a2b4b0f62a04385ea3f41afe05868124e}} 
+\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}} \& \mbox{\hyperlink{classvectorWarpper_a2b4b0f62a04385ea3f41afe05868124e}{operator=}} (const \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}} \&)=delete
+\begin{DoxyCompactList}\small\item\em 禁止赋值运算符。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classvectorWarpper_acefe6c3618ab6c81760992a37801eec7}\label{classvectorWarpper_acefe6c3618ab6c81760992a37801eec7}} 
+\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}} \& \mbox{\hyperlink{classvectorWarpper_acefe6c3618ab6c81760992a37801eec7}{operator=}} (\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}} \&\&)=delete
+\begin{DoxyCompactList}\small\item\em 禁止赋值运算符。 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classvectorWarpper_a10b50839107190e2257406d6ea67f525}{$\sim$vector\+Warpper}} ()
+\begin{DoxyCompactList}\small\item\em 析构函数。 \end{DoxyCompactList}\item 
+vector$<$ T $>$\+::iterator \mbox{\hyperlink{classvectorWarpper_ab02a528c23e9a13b786bfc80d5a0f013}{begin}} ()
+\begin{DoxyCompactList}\small\item\em 获取开始位置迭代器 \end{DoxyCompactList}\item 
+vector$<$ T $>$\+::iterator \mbox{\hyperlink{classvectorWarpper_ae06eaa7c642602447b24ac8fe0a9d477}{end}} ()
+\begin{DoxyCompactList}\small\item\em 获取结束位置迭代器 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classvectorWarpper_aefcf49d370a2dd8d0c2464893f964500}{push\+\_\+back}} (T \&\&t)
+\begin{DoxyCompactList}\small\item\em 从尾部插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入 push\+\_\+back底层调用的是emplace\+\_\+back \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classvectorWarpper_a6e7431ec59214c8267e1411aadb475fe}{emplace\+\_\+back}} (T \&\&t)
+\begin{DoxyCompactList}\small\item\em 从尾部插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 因为底层使用\+\_\+\+Alloc\+\_\+traits在尾部直接构造对象，因此效率比push\+\_\+back高很多。 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classvectorWarpper_a4573c7d2d30c8a51a43eb7f4cd5f6b4b}{insert}} (const size\+\_\+t \&index, T \&\&t)
+\begin{DoxyCompactList}\small\item\em 任意位置插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 插入元素位置之后的所有元素都往后平移1位 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classvectorWarpper_a45395ceedec9d88f197b749f74c0c3bc}{insert}} (const size\+\_\+t \&index, \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$ \&other)
+\begin{DoxyCompactList}\small\item\em 任意位置插入一个\+Vector$<$\+T$>$中的所有元素 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 插入元素位置之后的所有元素都往后平移1位 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classvectorWarpper_ae366bf1ca9994c74256ac2339b53d778}{erase}} (const size\+\_\+t begin\+\_\+index, const size\+\_\+t end\+\_\+index)
+\begin{DoxyCompactList}\small\item\em 移除一定范围的元素 会检查越界 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classvectorWarpper_ac37b0a6830c3b85b354a277702d96284}{resize}} (size\+\_\+t \mbox{\hyperlink{classvectorWarpper_a68699f5090fb2849085679cb8643e7c1}{size}})
+\begin{DoxyCompactList}\small\item\em 重新分配vector的size \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classvectorWarpper_a605538cc5e9427f30804dbaaae908284}{reserve}} (size\+\_\+t \mbox{\hyperlink{classvectorWarpper_a7b79d9bf8633e04ccc84da1c1a06567d}{capacity}})
+\begin{DoxyCompactList}\small\item\em 重新分配vector的capacity \end{DoxyCompactList}\item 
+T \& \mbox{\hyperlink{classvectorWarpper_a5f0572f29d8cc633df19c785eff43c9b}{operator\mbox{[}$\,$\mbox{]}}} (const size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em 获取某个元素的引用 \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classvectorWarpper_a7b79d9bf8633e04ccc84da1c1a06567d}{capacity}} ()
+\begin{DoxyCompactList}\small\item\em 获取vector的容量 \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classvectorWarpper_a68699f5090fb2849085679cb8643e7c1}{size}} ()
+\begin{DoxyCompactList}\small\item\em 获取vector的大小 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class vector\+Warpper$<$ T $>$}
+
+一个自定义的类，封装了 std\+::vector 的部分功能。 ~\newline
+ vector底层实现是一个动态数组,数组位于堆上。默认大小24字节 ~\newline
+ 继承自protected \+\_\+\+Vector\+\_\+base。\+\_\+\+Vector\+\_\+base控制数据的指针主要有三个\+:\+\_\+\+M\+\_\+start,\+\_\+\+M\+\_\+finish,\+\_\+\+M\+\_\+end\+\_\+of\+\_\+storage。 ~\newline
+ 无参构造函数不申请内存，有参构造函数一次性申请足够内存 ~\newline
+ 插入元素首先会检查空间是否足够，如果不够会扩容，扩容多少由编译器具体实现，vs1.5倍，gcc2倍，底层使用malloc分配内存空间。中间插入元素效率较低，尾部插入元素效率较好 ~\newline
+ 删除最后一个元素会把\+\_\+\+M\+\_\+finish指针前移一位，删除中间元素会直接把删除位置之后的元素前移一位覆盖， 删除元素不会释放已有的内存 ~\newline
+ 读取元素会检查是否越界 ~\newline
+ 修改元素不支持直接修改，需要先获取引用再修改 ~\newline
+ clear释放内存不会真的释放内存， shrink\+\_\+to\+\_\+fit可能释放，取决于编译器的实现。gcc会把容量缩减到和当前元素的数量相匹配 ~\newline
+ resize会截断当前vector，如果小于当前vector的size;反之会重新分配内存。resize 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classvectorWarpper_a623a8a7f0956309ad79db566d11f656e}\label{classvectorWarpper_a623a8a7f0956309ad79db566d11f656e}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!vectorWarpper@{vectorWarpper}}
+\index{vectorWarpper@{vectorWarpper}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{vectorWarpper()}{vectorWarpper()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+无参构造函数。 
+
+将 \+\_\+vec 初始化为 nullptr，表示未分配内存。 \mbox{\Hypertarget{classvectorWarpper_a4f7c1937877d0a1dfc3d82a4c6928b18}\label{classvectorWarpper_a4f7c1937877d0a1dfc3d82a4c6928b18}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!vectorWarpper@{vectorWarpper}}
+\index{vectorWarpper@{vectorWarpper}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{vectorWarpper()}{vectorWarpper()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+参数化构造函数。 
+
+初始化 \+\_\+vec 为一个指定大小的 std\+::vector。
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & vector 的长度，必须为非零正数。 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classvectorWarpper_a10b50839107190e2257406d6ea67f525}\label{classvectorWarpper_a10b50839107190e2257406d6ea67f525}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!````~vectorWarpper@{$\sim$vectorWarpper}}
+\index{````~vectorWarpper@{$\sim$vectorWarpper}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$vectorWarpper()}{~vectorWarpper()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+析构函数。 
+
+释放动态分配的 std\+::vector 对象。 $<$ 释放动态分配的 std\+::vector 对象
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classvectorWarpper_ab02a528c23e9a13b786bfc80d5a0f013}\label{classvectorWarpper_ab02a528c23e9a13b786bfc80d5a0f013}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!begin@{begin}}
+\index{begin@{begin}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+vector$<$T$>$\+::iterator \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+获取开始位置迭代器 
+
+\begin{DoxyReturn}{Returns}
+迭代器 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classvectorWarpper_a7b79d9bf8633e04ccc84da1c1a06567d}\label{classvectorWarpper_a7b79d9bf8633e04ccc84da1c1a06567d}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!capacity@{capacity}}
+\index{capacity@{capacity}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{capacity()}{capacity()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+获取vector的容量 
+
+\begin{DoxyReturn}{Returns}
+返回容器的容量 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classvectorWarpper_a6e7431ec59214c8267e1411aadb475fe}\label{classvectorWarpper_a6e7431ec59214c8267e1411aadb475fe}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!emplace\_back@{emplace\_back}}
+\index{emplace\_back@{emplace\_back}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{emplace\_back()}{emplace\_back()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::emplace\+\_\+back (\begin{DoxyParamCaption}\item[{T \&\&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+从尾部插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 因为底层使用\+\_\+\+Alloc\+\_\+traits在尾部直接构造对象，因此效率比push\+\_\+back高很多。 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & 一个类型为\+T的元素 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+成功会返回0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classvectorWarpper_ae06eaa7c642602447b24ac8fe0a9d477}\label{classvectorWarpper_ae06eaa7c642602447b24ac8fe0a9d477}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!end@{end}}
+\index{end@{end}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+vector$<$T$>$\+::iterator \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+获取结束位置迭代器 
+
+\begin{DoxyReturn}{Returns}
+迭代器 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classvectorWarpper_ae366bf1ca9994c74256ac2339b53d778}\label{classvectorWarpper_ae366bf1ca9994c74256ac2339b53d778}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!erase@{erase}}
+\index{erase@{erase}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{erase()}{erase()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::erase (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{begin\+\_\+index,  }\item[{const size\+\_\+t}]{end\+\_\+index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+移除一定范围的元素 会检查越界 
+
+
+\begin{DoxyParams}{Parameters}
+{\em begin\+\_\+index} & 被删除元素的起始位置 \\
+\hline
+{\em end\+\_\+index} & 被删除元素的结束位置 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+成功会返回0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classvectorWarpper_a4573c7d2d30c8a51a43eb7f4cd5f6b4b}\label{classvectorWarpper_a4573c7d2d30c8a51a43eb7f4cd5f6b4b}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!insert@{insert}}
+\index{insert@{insert}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::insert (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{index,  }\item[{T \&\&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+任意位置插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 插入元素位置之后的所有元素都往后平移1位 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & 插入元素的索引 \\
+\hline
+{\em t} & 一个类型为\+T的元素 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+成功会返回0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classvectorWarpper_a45395ceedec9d88f197b749f74c0c3bc}\label{classvectorWarpper_a45395ceedec9d88f197b749f74c0c3bc}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!insert@{insert}}
+\index{insert@{insert}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::insert (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{index,  }\item[{\mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+任意位置插入一个\+Vector$<$\+T$>$中的所有元素 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入。 插入元素位置之后的所有元素都往后平移1位 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & 插入元素的索引 \\
+\hline
+{\em other} & vector\+Warpper$<$\+T$>$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+成功会返回0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classvectorWarpper_a5f0572f29d8cc633df19c785eff43c9b}\label{classvectorWarpper_a5f0572f29d8cc633df19c785eff43c9b}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T\& \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+获取某个元素的引用 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & 需要获取元素的索引 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+成功会返回元素的引用 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classvectorWarpper_aefcf49d370a2dd8d0c2464893f964500}\label{classvectorWarpper_aefcf49d370a2dd8d0c2464893f964500}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!push\_back@{push\_back}}
+\index{push\_back@{push\_back}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{push\_back()}{push\_back()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::push\+\_\+back (\begin{DoxyParamCaption}\item[{T \&\&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+从尾部插入一个对象 vector首先会检查空间是否足够如果足够那么就会直接插入，不够会让内存翻倍再插入 push\+\_\+back底层调用的是emplace\+\_\+back 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & 一个类型为\+T的元素 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+成功会返回0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classvectorWarpper_a605538cc5e9427f30804dbaaae908284}\label{classvectorWarpper_a605538cc5e9427f30804dbaaae908284}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!reserve@{reserve}}
+\index{reserve@{reserve}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{reserve()}{reserve()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::reserve (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{capacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+重新分配vector的capacity 
+
+
+\begin{DoxyItemize}
+\item 如果n$>$容器的当前capacity，该函数会使得容器重新分配内存使capacity达到n
+\item 任何其他情况，该函数调用不会导致内存重新分配，并且容器的capacity不会改变
+\item 该函数不会影响向量的size而且不会改变任何元素 
+\begin{DoxyParams}{Parameters}
+{\em capacity} & 容器调整后容量的大小 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+成功会返回0 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classvectorWarpper_ac37b0a6830c3b85b354a277702d96284}\label{classvectorWarpper_ac37b0a6830c3b85b354a277702d96284}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!resize@{resize}}
+\index{resize@{resize}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{resize()}{resize()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+int \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::resize (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+重新分配vector的size 
+
+
+\begin{DoxyItemize}
+\item 如果new size $<$ current size，只保留前n个，但是多余的元素会销毁，基本数据类型除外
+\item 如果new size $>$ current size，则在容器中追加元素，如果val指定了，则追加的元素为val的拷贝，否则，默认初始化
+\item 如果new size $>$ current capacity，内存会自动重新分配 
+\begin{DoxyParams}{Parameters}
+{\em size} & 容器调整后的size \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+成功会返回0 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\mbox{\Hypertarget{classvectorWarpper_a68699f5090fb2849085679cb8643e7c1}\label{classvectorWarpper_a68699f5090fb2849085679cb8643e7c1}} 
+\index{vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}!size@{size}}
+\index{size@{size}!vectorWarpper$<$ T $>$@{vectorWarpper$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classvectorWarpper}{vector\+Warpper}}$<$ T $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+获取vector的大小 
+
+\begin{DoxyReturn}{Returns}
+返回容器的大小 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/repo/\+STL-\/\+Warpper/src/stl\+\_\+vector.\+cpp\end{DoxyCompactItemize}

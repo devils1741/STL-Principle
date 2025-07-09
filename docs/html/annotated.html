@@ -67,15 +67,21 @@ $(function() {
 <div class="contents">
 <div class="textblock">Here are the classes, structs, unions and interfaces with brief descriptions:</div><div class="directory">
 <table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classVector.html" target="_self">Vector</a></td><td class="desc">一个自定义的类，封装了 std::vector 的部分功能。 <br  />
- vector底层实现是一个动态数组 <br  />
+<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classlistWarpper.html" target="_self">listWarpper</a></td><td class="desc">一个自定义的类，封装了stl中的list的部分功能 <br  />
+ list是一个双向链表 <br  />
+ 节点结构有_List_node、_List_node_header以及_List_iterator和_List_const_iterator <br  />
+ struct _List_node_base { _List_node_base* _M_next; _List_node_base* _M_prev;} <br  />
+ _List_node_header继承自_List_node_base， 新增了_M_size用于表示链表的大小 </td></tr>
+<tr id="row_1_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classvectorWarpper.html" target="_self">vectorWarpper</a></td><td class="desc">一个自定义的类，封装了 std::vector 的部分功能。 <br  />
+ vector底层实现是一个动态数组,数组位于堆上。默认大小24字节 <br  />
  继承自protected _Vector_base。_Vector_base控制数据的指针主要有三个:_M_start,_M_finish,_M_end_of_storage。 <br  />
  无参构造函数不申请内存，有参构造函数一次性申请足够内存 <br  />
- 插入元素首先会检查空间是否足够，如果不够会扩容，扩容多少由编译器具体实现。中间插入元素效率较低，尾部插入元素效率较好 <br  />
- 删除最后一个元素会把_M_end_of_storage指针前移一位，删除中间元素会直接把删除位置之后的元素前移一位覆盖， 删除元素不会释放已有的内存 <br  />
+ 插入元素首先会检查空间是否足够，如果不够会扩容，扩容多少由编译器具体实现，vs1.5倍，gcc2倍，底层使用malloc分配内存空间。中间插入元素效率较低，尾部插入元素效率较好 <br  />
+ 删除最后一个元素会把_M_finish指针前移一位，删除中间元素会直接把删除位置之后的元素前移一位覆盖， 删除元素不会释放已有的内存 <br  />
  读取元素会检查是否越界 <br  />
  修改元素不支持直接修改，需要先获取引用再修改 <br  />
- clear释放内存不会真的释放内存， shrink_to_fit可能释放，取决于编译器的实现。gcc会把容量缩减到和当前元素的数量相匹配 </td></tr>
+ clear释放内存不会真的释放内存， shrink_to_fit可能释放，取决于编译器的实现。gcc会把容量缩减到和当前元素的数量相匹配 <br  />
+ resize会截断当前vector，如果小于当前vector的size;反之会重新分配内存。resize </td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
