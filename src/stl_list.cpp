@@ -15,6 +15,25 @@ class listWarpper
 {
 public:
     listWarpper() : _list(new list<T>()) {}
+    /**
+     * @brief 禁止拷贝构造
+     */
+    listWarpper(const listWarpper &) = delete;
+    /**
+     * @brief 禁止移动拷贝构造
+     */
+    listWarpper(listWarpper &&) = delete;
+    /**
+     * @brief 禁止赋值
+     */
+    listWarpper &operator=(const listWarpper &) = delete;
+    /**
+     * @brief 禁止移动赋值
+     */
+    listWarpper &operator=(listWarpper &&) = delete;
+    /**
+     * @brief 析构函数
+     */
     ~listWarpper()
     {
         delete _list;
